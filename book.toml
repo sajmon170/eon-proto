@@ -1,0 +1,5 @@
+[book]
+authors = ["sajmon"]
+language = "en"
+src = "src"
+title = "The Extensible Object Network Protocol"
