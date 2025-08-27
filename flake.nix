@@ -14,8 +14,9 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
+          nativeBuildInputs = with pkgs; [
             mdbook
+            mdbook-admonish
           ];
         };
       }
