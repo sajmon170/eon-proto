@@ -1,0 +1,470 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Extensible Object Network Protocol</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./mdbook-admonish.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Extensible Object Network Protocol</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="preface"><a class="header" href="#preface">Preface</a></h1>
+<div id="admonition-not-a-web3-project" class="admonition admonish-warning" role="note" aria-labelledby="admonition-not-a-web3-project-title">
+<div class="admonition-title">
+<div id="admonition-not-a-web3-project-title">
+<p>Not a Web3 project</p>
+</div>
+<a class="admonition-anchor-link" href="intro/preface.html#admonition-not-a-web3-project"></a>
+</div>
+<div>
+<p>This is <strong>not</strong> a Web3 project. It doesn't use blockchain and it's not based on
+monetary transactions. There are no cryptocurrencies involved.</p>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-another-network"><a class="header" href="#why-another-network">Why another network?</a></h1>
+<h2 id="centralization-of-basic-services"><a class="header" href="#centralization-of-basic-services">Centralization of basic services</a></h2>
+<p>The current WWW landscape is centralized. Most people use the same
+search engine (Google Search), the same video sharing platform (YouTube),
+the same social network (Facebook) etc.. This approach has its issues:</p>
+<ul>
+<li>its optimized for project commercialization, not for promoting small and
+independent creative endeavours</li>
+<li>freedom of speech is being progressively limited</li>
+<li>users are subjected to invasive profiling and tracking in order to maximize
+ad revenue at the cost of user privacy</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="whats-the-main-cause"><a class="header" href="#whats-the-main-cause">What's the main cause?</a></h1>
+<p>This centralized state is caused by many factors. The most prominent ones stem
+primarily from core design decisions of the World Wide Web.</p>
+<h2 id="designed-by-programmers-for-programmers"><a class="header" href="#designed-by-programmers-for-programmers">Designed by programmers, for programmers</a></h2>
+<p>In an age where even basic filesystem structure knowledge has been abstracted
+away by mobile operating systems one cannot assume that the end user is able to
+set up a dedicated HTTP server on their own, much less acquire an open port and
+a domain name.</p>
+<h2 id="designed-for-mainframes"><a class="header" href="#designed-for-mainframes">Designed for mainframes</a></h2>
+<p>The WWW was designed in a time when a mainframe server was necessary to do any
+kind of non-trivial computations while the end users' terminals were delegated
+to only downloading and previewing content. It was not designed with edge
+computing in mind.</p>
+<h2 id="designed-without-mobile-internet-in-mind"><a class="header" href="#designed-without-mobile-internet-in-mind">Designed without mobile internet in mind</a></h2>
+<p>Today everyone is always connected, and the primary way of accessing the
+internet are mobile phones.</p>
+<h2 id="designed-for-static-content-delivery"><a class="header" href="#designed-for-static-content-delivery">Designed for static content delivery</a></h2>
+<p>Dynamic content is a CGI-based hack on top of existing old HTTP infrastructure,
+even though it forms the basis of current web interaction.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-solution"><a class="header" href="#the-solution">The solution</a></h1>
+<p>We propose a new protocol for distributed communication. It inverts most of
+the current WWW-based applications' assumptions. In particular:</p>
+<ul>
+<li>it does away with client-server architecture in favor of distributed P2P</li>
+<li>data is distributed on end-user devices, not on centralized servers</li>
+<li>all user traffic is end-to-end encrypted by default</li>
+<li>users are the content providers, not servers</li>
+<li>users store sensitive data on their own devices, not on external servers</li>
+<li>the network allows dynamic content delivery without the use of external CGI
+tools</li>
+<li>UI data processing is done on end user devices, not on centralized servers.</li>
+</ul>
+<p>While the WWW created primitives for static content delivery the proposed
+network architecture creates primitives for dynamic content delivery. This is
+achived though a system of object and tags, which can be effectively added to
+the network thanks to a hybrid Kademlia-Gossipsub overlay network.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="design-principles"><a class="header" href="#design-principles">Design principles</a></h1>
+<p>The protocol described in this document is based on a set of well-defined design
+principles. If a problem had multiple solutions the one that was chosen followed
+those principles best.</p>
+<ul>
+<li>Whenever possible complicated behaviors aren't specified in the protocol
+directly, but are an emergent property of other behaviors</li>
+<li>Keep It Simple, Stupid - the protocol should provide the bare minimum set of
+primitives required to build other, more complicated behaviors by the
+application. Every implemented primitive's usage is maximized</li>
+<li>Occam's Razor - every primitive should work in a straightforward manner.
+Everything that's not necessary to understand or implement it needs to be cut.</li>
+<li>Local processing is preferred over sending remote requests (e.g. local garbage
+collecting vs sending periodic network cleanup requests)</li>
+<li>The load needs to be balanced evenly between end users (e.g. no superpeers)</li>
+<li>Increasing anonymity can't come at the cost of network performance. Perfect
+anonymity is useless if no one will use the service because it's too slow.</li>
+<li>Loss of anonymity is caused by the user's actions, not by the system.</li>
+<li>User authentication is based on public-key cryptography and there is no
+centralized authority for creating new identities. Every connection is based on
+a zero-trust model by default.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="layer-overview"><a class="header" href="#layer-overview">Layer overview</a></h1>
+<h2 id="session-layer"><a class="header" href="#session-layer">Session layer</a></h2>
+<p>This layer describes low-level primitives for transferring data over streams.
+Data transport is encrypted based on long-term public keys gathered both through
+Kademlia search and out-of-band exchange.</p>
+<h2 id="peer-discovery"><a class="header" href="#peer-discovery">Peer discovery</a></h2>
+<p>This layer implements structured network topology that allows for efficient
+search and sending requests to other peers. It also decides who stores what.</p>
+<h2 id="object-transfer"><a class="header" href="#object-transfer">Object transfer</a></h2>
+<p>This layer introduces the notion of an extensible object and describes the set
+of mandatory base objects. It's responsible for data fragmentation and the
+immediate transfer mode, along with other things. It also defines an extensible
+RPC interface.</p>
+<h2 id="application-modules"><a class="header" href="#application-modules">Application modules</a></h2>
+<p>A set of objects necessary to build apps based on the previous layer. It allows
+defining its own subprotocols.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="peer-discovery-1"><a class="header" href="#peer-discovery-1">Peer Discovery</a></h1>
+<p>The Peer Discovery layer is responsible for finding peers storing requested
+content. This is done by creating a new virtual network topology (i.e. an
+overlay network). This layer is both performance and reliability critical
+as it provides a basis for the rest of the distributed system.</p>
+<p>One also needs to define what exactly is the result of a peer discovery search.
+A naive solution based on a simple Kademlia search will return nodes whose ID
+is the most similar to the requested one. This is not enough for the purposes
+of this project, as described in the <em>Motivation</em> section.</p>
+<p>Therefore, it is assumed that a search can return <em>any</em> peer if it knows the
+path to the destination.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="description"><a class="header" href="#description">Description</a></h1>
+<h2 id="kademlia"><a class="header" href="#kademlia">Kademlia</a></h2>
+<p>The peer discovery layer is defined by hierarchical groups with access control.
+Every group is defined by its own Kademlia network with the following additional
+abstractions:</p>
+<ul>
+<li>Route caching that allows for early termination of future Kademlia requests</li>
+<li>Generalized search target - users don't search for a single best-fit host
+that's tasked with managing specific content - they search for any host from
+the content's <em>management group</em> instead.</li>
+</ul>
+<h2 id="groups"><a class="header" href="#groups">Groups</a></h2>
+<p>By default the system is divided into global, continent and country-level
+groups. Furthermore, the users can create their own private groups that belong
+to some other public group. This implies that users can't create another
+global-level group.</p>
+<p>A public group is defined as a private group whose signing key is publicly
+known. Both types of groups are managed through the same system. Every group
+contains its own Kademlia network with extensions, as previously stated. Users
+are assigned to correct groups based on their IP address.</p>
+<h2 id="route-caching"><a class="header" href="#route-caching">Route caching</a></h2>
+<p>Base Kademlia requests return the user closest to a given content identifier.
+This user serves as the primary gateway to the content management group. If the
+content management group is composed of multiple nodes the gateway returns the
+ID and address of a random node from this group.</p>
+<p>Users are required to cache their requests into routing shortcut tables. If a
+future Kademlia request passes through them they not only return their closest
+peers, but also all their known cached members of the management group.</p>
+<h2 id="management-groups"><a class="header" href="#management-groups">Management groups</a></h2>
+<p>Management groups serve content with a hash that's the same as the group's
+identifier. They also store objects related to that hash (e.g. <em>Pins</em> as defined
+by the upper layer). Users that belong to this group are responsible for
+distributed sharding. Every group member knows something about the hash, and
+they synchronize that knowledge through the Gossipsub protocol.</p>
+<p>Everyone can join a management grup. A member can ask other nodes from the
+High Availability group for help if it detects an increased load on the content.</p>
+<p>External nodes can help with content delivery by becoming <em>seeders</em>, i.e. by
+notifying other members about their readiness to provide content with the same
+hash. It is not required for them to also store related content (e.g. Pins).
+Seeders aren't part of the distributed sharding, so they also aren't stored in
+any routing shortcut tables.</p>
+<h2 id="high-availability-nodes"><a class="header" href="#high-availability-nodes">High availability nodes</a></h2>
+<p>Inactive users automatically join the High Availability group. All users present
+there signal their readiness to help with other requests.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="api---kademlia-groups"><a class="header" href="#api---kademlia-groups">API - Kademlia groups</a></h1>
+<h2 id="base-types"><a class="header" href="#base-types">Base types</a></h2>
+<ul>
+<li>A BLAKE3 hash that's used as both a content identifier and its respective
+content management group identifier.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Hash = [u8; 32];
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>User identifier</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type UserId = Hash;
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>User/Kademlia group identifier</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type GroupId = Hash
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>User downloaded content (a byte buffer)</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type Content = Vec&lt;u8&gt;
+<span class="boring">}</span></code></pre></pre>
+<h2 id="group-structures"><a class="header" href="#group-structures">Group structures</a></h2>
+<ul>
+<li>Basic node descriptor - its identifier and address (IP and port)</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Node {
+    id: NodeId,
+    addr: SocketAddr
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>Group owners can give out signed group access certificates to other users. If
+the signing key becomes public the whole group will also turn public.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct GroupAccessToken {
+    binding: GroupAccessBinding,
+    group_owner_signature: Signature
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>User access is limited to a given UTC timestamp.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>type UnixTimestamp = u64;
+
+struct GroupAccessBinding {
+    group: GroupId,
+    recipient: UserId,
+    revocation_date: UnixTimestamp
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>User group validity certificate - the group definition signed by its owner.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct UserGroup {
+    definition: GroupDefinition,
+    signature: Signature
+}
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>Hierarchical group definition - its description along with the owner's access
+certificate to the group higher in the hierarchy. The hierarchy finishes with
+the top-level global group. It's a root node for other sub-groups. Other global
+groups can't be created.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct GroupDefinition {
+    id: GroupId,
+    owner: UserId,
+    parent: GroupId,
+    parent_membership_proof: GroupAccessToken
+}
+<span class="boring">}</span></code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
