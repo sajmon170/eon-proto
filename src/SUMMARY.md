@@ -1,3 +1,7 @@
 # Summary
 
-- [Chapter 1](./chapter_1.md)
+## Preface
+- [Preface](intro/preface.md)
+  - [The centralized landscape](intro/centralization.md)
+  - [Main causes](intro/causes.md)
+  - [The solution](intro/solution.md)
